@@ -1,28 +1,20 @@
 /*login panel control*/
-_innoApp.controller("loginStateCtrl", ["$scope", "$http", "$location", "authentication", function($scope, $http, $location, authentication){
+_innoApp.controller("loginStateCtrl", ["$scope", "$location", "$http",  function($scope, $location, $http, authentication){
   
   $scope.isValid = null;
-  
-  var userData = [
-    {"name": "user1", "passw": "pass"},
-    {"name": "admin", "passw": "admin"},
-    {"name": "eswar", "passw": "eswar"}    
-  ];
- /* //var userData = [];
-  $http({
+     $http({
     url:'usersdata.json',
     method:'get',
-  }).success(function(resp1){
-    $scope.userData = resp1;        
-  console.log(userData.name);
-  })*/
-  
+  }).success(function(resp){
+    $scope.userData = resp; 
+
+  });
 
   $scope.login = function(uVal, pVal){
     //console.log("User Name: "+uVal+", Password: "+pVal);
-    for( var i=0;i<userData.length;i++){
-      if(userData[i].name == uVal && userData[i].passw == pVal){
-        $location.url("home/page-home");
+    for(var i=0;i<$scope.userData.length;i++){
+      if($scope.userData[i].name == uVal && $scope.userData[i].passw == pVal){
+        $location.url("home/home-page");
         authentication.user = uVal;
         $scope.isValid = false;
         break;
@@ -30,7 +22,8 @@ _innoApp.controller("loginStateCtrl", ["$scope", "$http", "$location", "authenti
         $scope.isValid = true;
       }
     }
-  };
+  }
+
 
 }]);
 
